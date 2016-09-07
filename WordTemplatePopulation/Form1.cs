@@ -12,6 +12,7 @@ namespace WordTemplatePopulation
 {
     public partial class Form1 : Form
     {
+        
         public Form1()
         {
             InitializeComponent();
@@ -19,12 +20,18 @@ namespace WordTemplatePopulation
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ExcelWork.OpenExcelFile();
+            string filePath = ExcelWork.ChooseFile();
+            this.excelTable = ExcelWork.ReadExcelFile(filePath);
+            this.label1.Text = "Выбран " + filePath;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            string filePath = WordWork.openWordFile();
 
+            WordWork.CreateOutputFiles("@", this.excelTable, filePath);
+
+            this.label2.Text = "Выбран " + filePath;
         }
     }
 }
